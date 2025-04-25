@@ -23,7 +23,7 @@ class NowPlayingViewModel  @Inject constructor(
         viewModelScope.launch {
             _moviesState.value = Resource.Loading()
             //todo
-            val result = getNowPlayingUseCase(1, "BuildConfig")
+            val result = getNowPlayingUseCase(1)
             if (result.isSuccess) {
                 result.getOrNull()?.let {
                    _moviesState.value = Resource.Success(it.results)
