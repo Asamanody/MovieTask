@@ -6,7 +6,7 @@
     app:startDestination="@id/nowPlayingFragment">
     <fragment
         android:id="@+id/nowPlayingFragment"
-        android:name="com.samanody.task.NowPlayingFragment"
+        android:name="com.samanody.task.fetures.nowplaying.NowPlayingFragment"
         android:label="fragment_now_playing"
         tools:layout="@layout/fragment_now_playing" />
 </navigation>

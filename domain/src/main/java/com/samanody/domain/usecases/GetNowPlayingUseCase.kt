@@ -8,11 +8,10 @@ class GetNowPlayingUseCase   @Inject constructor(
     private val movieRepo: MovieRepo
 ) {
     suspend operator fun invoke(
-        page: Int,
-        apiKey: String
+        page: Int
     ): Result<MovieResponse?> {
         return try {
-            Result.success(movieRepo.getNowPlaying(page, apiKey))
+            Result.success(movieRepo.getNowPlaying(page))
         } catch (e: Exception) {
             Result.failure(e)
         }

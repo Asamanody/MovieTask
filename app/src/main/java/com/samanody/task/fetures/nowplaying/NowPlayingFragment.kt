@@ -1,16 +1,15 @@
-package com.samanody.task
+package com.samanody.task.fetures.nowplaying
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.samanody.domain.Resource.Resource
 import com.samanody.task.databinding.FragmentNowPlayingBinding
-import com.samanody.task.fetures.nowplaying.NowPlayingViewModel
 import com.samanody.task.fetures.nowplaying.adapter.MovieAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -19,7 +18,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class NowPlayingFragment : Fragment() {
 
-    private var _binding: FragmentNowPlayingBinding? = null
+   private var _binding: FragmentNowPlayingBinding? = null
     private val binding get() = _binding !!
     private val viewModel: NowPlayingViewModel by viewModels()
     private lateinit var adapter: MovieAdapter
@@ -66,7 +65,8 @@ class NowPlayingFragment : Fragment() {
         }
         viewModel.loadMovies()
         binding.searchField.addTextChangedListener {
-            viewModel.filterMovies(it.toString())
+            val query = it.toString()
+            viewModel.filterMovies(query)
         }
         viewModel.loadMovies()
     }
