@@ -10,7 +10,7 @@
         android:id="@+id/searchField"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Search movies..."
+        android:hint="@string/search_movies"
         android:padding="16dp"
         android:background="@android:color/white"
         android:inputType="text"
