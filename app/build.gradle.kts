@@ -19,6 +19,9 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        val apiKey: String = project.findProperty("TMDB_API_KEY") as String? ?: ""
+        buildConfigField("String", "TMDB_API_KEY", "\"$apiKey\"")
     }
 
     buildTypes {
@@ -86,6 +89,8 @@ dependencies {
     ksp(libs.androidx.hilt.worker.compiler)
 
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.coil)
+    implementation(libs.coil.base)
 
     implementation(project(":data"))
     implementation(project(":domain"))
