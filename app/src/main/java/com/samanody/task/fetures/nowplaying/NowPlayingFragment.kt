@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.samanody.domain.Resource.Resource
+import com.samanody.task.MainActivity
 import com.samanody.task.databinding.FragmentNowPlayingBinding
 import com.samanody.task.fetures.nowplaying.adapter.MovieAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,15 +24,18 @@ class NowPlayingFragment : Fragment() {
     private val binding get() = _binding !!
     private val viewModel: NowPlayingViewModel by viewModels()
     private lateinit var adapter: MovieAdapter
+    private lateinit var parent : MainActivity
+
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentNowPlayingBinding.bind(requireView())
+        parent = requireActivity() as MainActivity
 
         lifecycleScope.launch {
             viewModel.moviesState.collectLatest { state ->
-                //todo hide loading state
+               parent.showLoading(false)
                 when (state) {
                     is Resource.Success-> {
                         adapter = MovieAdapter { movie ->
@@ -55,7 +59,7 @@ class NowPlayingFragment : Fragment() {
 
                     }
                     is Resource.Loading -> {
-                        // todo show loading state
+                        parent.showLoading(true)
                     }
                     is Resource.Empty -> Unit
                     is Resource.Exception -> Toast.makeText(
