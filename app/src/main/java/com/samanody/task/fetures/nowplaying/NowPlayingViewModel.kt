@@ -3,6 +3,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.samanody.domain.Resource.Resource
 import com.samanody.domain.models.MovieDto
+import com.samanody.domain.repos.MovieRepo
 import com.samanody.domain.usecases.GetNowPlayingUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -10,7 +11,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class NowPlayingViewModel  @Inject constructor(
-    private val getNowPlayingUseCase: GetNowPlayingUseCase
+    private val getNowPlayingUseCase: GetNowPlayingUseCase,
+    private val repository: MovieRepo
 ) : ViewModel() {
 
 
@@ -22,6 +24,12 @@ class NowPlayingViewModel  @Inject constructor(
     fun loadMovies() {
         viewModelScope.launch {
             _moviesState.value = Resource.Loading()
+            //get cached first
+            val cached = repository.getCachedMovies()
+            if (cached.isNotEmpty()) {
+                allMovies = cached
+                _moviesState.value = Resource.Success(cached)
+            }
             //todo
             val result = getNowPlayingUseCase(1)
             if (result.isSuccess) {
