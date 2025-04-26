@@ -57,5 +57,9 @@ dependencies {
     implementation(libs.androidx.hilt.worker)
     ksp(libs.androidx.hilt.worker.compiler)
 
+
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
+
     implementation(libs.gson)
 }
