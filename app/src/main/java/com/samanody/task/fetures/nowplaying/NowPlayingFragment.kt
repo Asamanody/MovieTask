@@ -7,6 +7,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.samanody.domain.Resource.Resource
 import com.samanody.task.databinding.FragmentNowPlayingBinding
@@ -30,10 +31,13 @@ class NowPlayingFragment : Fragment() {
 
         lifecycleScope.launch {
             viewModel.moviesState.collectLatest { state ->
+                //todo hide loading state
                 when (state) {
                     is Resource.Success-> {
                         adapter = MovieAdapter { movie ->
-                            // TODO: Navigate to details
+                            val action = NowPlayingFragmentDirections
+                                .actionNowPlayingFragmentToMovieDetailsFragment(movie)
+                            findNavController().navigate(action)
                         }
                         binding.movieRecyclerView.apply {
                             layoutManager= GridLayoutManager(requireContext(), 2)
@@ -52,7 +56,6 @@ class NowPlayingFragment : Fragment() {
                     }
                     is Resource.Loading -> {
                         // todo show loading state
-
                     }
                     is Resource.Empty -> Unit
                     is Resource.Exception -> Toast.makeText(
