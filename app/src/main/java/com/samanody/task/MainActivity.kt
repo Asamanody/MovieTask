@@ -1,6 +1,7 @@
 package com.samanody.task
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
@@ -23,5 +24,11 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
+    }
+    fun showLoading(visibility: Boolean) {
+        binding.progressBar.visibility =
+            if (visibility) View.VISIBLE
+            else View.GONE
+
     }
 }
