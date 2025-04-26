@@ -48,6 +48,12 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+
+    implementation(libs.androidx.work.runtime)
+
+    implementation(libs.work.runtime.ktx)
+
+
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
 
